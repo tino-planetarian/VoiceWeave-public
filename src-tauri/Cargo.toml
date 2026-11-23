@@ -1,0 +1,102 @@
+[package]
+name = "voiceweave"
+version = "0.3.12"
+description = "Local Windows voice input"
+authors = []
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# The `_lib` suffix may seem redundant but it is necessary
+# to make the lib name unique and wouldn't conflict with the bin name.
+# This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
+name = "voiceweave_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[features]
+default = ["experimental-audio"]
+experimental-audio = ["dep:cpal", "dep:rubato", "dep:audioadapter-buffers"]
+
+[[example]]
+name = "device_probe"
+required-features = ["experimental-audio"]
+
+[[example]]
+name = "mic_probe"
+required-features = ["experimental-audio"]
+
+[[example]]
+name = "format_probe"
+required-features = ["experimental-audio"]
+
+[[example]]
+name = "recording_probe"
+required-features = ["experimental-audio"]
+
+[[example]]
+name = "record_eval"
+required-features = ["experimental-audio"]
+
+[[example]]
+name = "capture_transcribe_probe"
+required-features = ["experimental-audio"]
+
+[[example]]
+name = "input_devices_probe"
+required-features = ["experimental-audio"]
+
+[[example]]
+name = "resample_probe"
+required-features = ["experimental-audio"]
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon"] }
+tauri-plugin-single-instance = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10.9"
+clipboard-win = "5.4.1"
+uuid = { version = "1", features = ["v4"] }
+tokio = { version = "1", features = ["process", "io-util", "time", "sync", "macros", "rt-multi-thread"] }
+cpal = { version = "0.18.2", optional = true }
+rubato = { version = "5.0.0", optional = true }
+audioadapter-buffers = { version = "5.1.0", optional = true }
+windows = { version = "0.61.3", features = ["Win32_Foundation", "Win32_UI_Accessibility", "Win32_System_Com", "Win32_System_Ole", "Win32_System_Variant"] }
+windows-sys = { version = "0.61.2", features = ["Win32_Foundation", "Win32_Graphics_Gdi", "Win32_UI_WindowsAndMessaging", "Win32_UI_Input_KeyboardAndMouse", "Win32_System_Threading", "Win32_Storage_FileSystem", "Win32_System_Registry", "Win32_System_JobObjects", "Win32_Security", "Win32_Security_Credentials", "Win32_Networking_WinHttp", "Win32_System_SystemInformation", "Win32_Graphics_Dwm", "Win32_System_StationsAndDesktops"] }
+
+
+# Read the optimization guideline for more details: https://tauri.app/concept/size/#cargo-configuration
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+panic = "abort"
+strip = true
+
+# Full integrity checks must remain practical in the development build too.
+[profile.dev.package.sha2]
+opt-level = 3
+
+# The development capture build converts audio after every stop. Unoptimized generic FFT
+# code (monomorphized inside this crate) measured ~50 ms per recorded second, so optimize
+# this crate and the resampling crates in dev. Debug assertions and symbols stay enabled.
+[profile.dev.package.voiceweave]
+opt-level = 2
+[profile.dev.package.rubato]
+opt-level = 3
+[profile.dev.package.realfft]
+opt-level = 3
+[profile.dev.package.rustfft]
+opt-level = 3
+[profile.dev.package.audioadapter]
+opt-level = 3
+[profile.dev.package.audioadapter-buffers]
+opt-level = 3
+
+[[example]]
+name = "job_probe"
+required-features = ["experimental-audio"]

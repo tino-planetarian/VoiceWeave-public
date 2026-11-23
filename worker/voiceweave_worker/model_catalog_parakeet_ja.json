@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "preset": "parakeet-ja",
+  "repo_id": "csukuangfj/sherpa-onnx-nemo-parakeet-tdt_ctc-0.6b-ja-35000-int8",
+  "revision": "bef18eb066808c90bd0f5df5be685767b0732de8",
+  "license": "cc-by-4.0",
+  "files": [
+    {
+      "name": "model.int8.onnx",
+      "bytes": 655542604,
+      "sha256": "3addd00ef5bd1742078389e540b77394e4a508bdf2f4c9ad1b4a76d93e76598e"
+    },
+    {
+      "name": "tokens.txt",
+      "bytes": 28557,
+      "sha256": "732f64c53909f2620c713f4106b487d92e6f54a6915b3cd3d1dbd32f9f4f392a"
+    }
+  ]
+}
