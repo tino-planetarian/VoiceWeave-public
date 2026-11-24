@@ -13,7 +13,9 @@ button { font: inherit; }
 .page { flex: 1; min-height: 0; overflow-y: auto; padding-right: 4px; }
 .window-pin { align-self: flex-start; margin-top: -4px; margin-left: auto; padding: 6px 8px; line-height: 0; color: #aab9d6; }
 .window-pin.pinned { color: #e8efff; background: #2d426b; border-color: #8aa0ff; }
-.window-close { align-self: flex-start; margin-top: -4px; margin-left: 6px; font-size: 13px; }
+.window-help, .window-close { align-self: flex-start; margin-top: -4px; margin-left: 6px; font-size: 13px; }
+.mark, .window-pin, .window-help, .window-close, .header-title { flex: 0 0 auto; white-space: nowrap; }
+.header-status { flex: 1 1 auto; min-width: 0; }
 .shortcut-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
 .diagnostics-body { max-height: 46vh; overflow-y: auto; margin-top: 8px; padding-right: 6px; }
 header { display: flex; align-items: center; gap: 16px; margin: 0 -20px 4px; padding: 14px 20px 12px; }

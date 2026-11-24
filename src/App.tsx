@@ -381,6 +381,8 @@ function App() {
             <path d="M9 3h6l-1 6 4 4H6l4-4z" fill={pinned ? "currentColor" : "none"} /><path d="M12 13v8" />
           </svg>
         </button>
+        <button type="button" className="window-help" title="使い方のマニュアルをブラウザーで開きます"
+          onClick={() => void invoke("open_manual").catch((error) => setNotice(String(error)))}>使い方</button>
         <button type="button" className="window-close" title="閉じてもトレイに残ります"
           onClick={() => void getCurrentWindow().close()}>閉じる</button>
       </header>

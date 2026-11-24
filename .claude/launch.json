@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "manual-shots", "runtimeExecutable": "npx.cmd", "runtimeArgs": ["vite", "--config", "scripts/manual-shots/vite.config.ts"], "port": 1430 }
+  ]
+}

@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>VoiceWeave 使い方</title>
+<meta name="description" content="Windows用の日本語音声入力ツール VoiceWeave の使い方マニュアル">
+<style>
+:root {
+  --bg: #f6f7fb; --card: #ffffff; --text: #1d2433; --sub: #5b6475; --line: #e3e7ef;
+  --accent: #4f6cf7; --accent-soft: #eef1ff; --warn: #b4690e; --warn-soft: #fff6e8; --ok: #1f8a5b;
+  --key: #ffffff; --key-edge: #c9cfdb; --shadow: 0 1px 2px rgba(20,30,60,.06), 0 6px 24px rgba(20,30,60,.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1420; --card: #171e2d; --text: #e7ebf3; --sub: #9aa4b6; --line: #273044;
+    --accent: #7c93ff; --accent-soft: #1d2640; --warn: #f0b35a; --warn-soft: #2a2215; --ok: #5fd39c;
+    --key: #222b3d; --key-edge: #3a4560; --shadow: none;
+  }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font-family: "Segoe UI", "Yu Gothic UI", "Meiryo", system-ui, sans-serif; line-height: 1.8; font-size: 16px; }
+a { color: var(--accent); }
+.wrap { max-width: 880px; margin: 0 auto; padding: 0 16px; }
+header.hero { padding: 56px 0 36px; }
+.brand { display: flex; align-items: center; gap: 14px; }
+.logo { width: 52px; height: 52px; border-radius: 14px; background: var(--accent); color: #fff;
+  display: grid; place-items: center; font-weight: 700; font-size: 26px; }
+h1 { font-size: 34px; margin: 0; letter-spacing: .01em; }
+.tagline { color: var(--sub); margin: 14px 0 0; font-size: 17px; }
+.cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+.btn { display: inline-block; padding: 10px 18px; border-radius: 10px; text-decoration: none; font-weight: 600;
+  border: 1px solid var(--accent); }
+.btn.primary { background: var(--accent); color: #fff; }
+nav.toc { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; box-shadow: var(--shadow); }
+nav.toc ol { margin: 0; padding-left: 1.4em; columns: 2; column-gap: 32px; }
+nav.toc li { break-inside: avoid; }
+section.chapter { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 28px 28px 20px;
+  margin: 24px 0; box-shadow: var(--shadow); }
+h2 { font-size: 24px; margin: 0 0 12px; display: flex; align-items: center; gap: 12px; }
+h2 .num { width: 34px; height: 34px; flex: 0 0 auto; border-radius: 50%; background: var(--accent-soft); color: var(--accent);
+  display: grid; place-items: center; font-size: 17px; }
+h3 { font-size: 18px; margin: 26px 0 8px; }
+.steps { list-style: none; padding: 0; margin: 12px 0; counter-reset: s; }
+.steps > li { position: relative; padding-left: 42px; margin: 14px 0; counter-increment: s; }
+.steps > li::before { content: counter(s); position: absolute; left: 0; top: 2px; width: 28px; height: 28px; border-radius: 8px;
+  background: var(--accent); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: 14px; }
+kbd { display: inline-block; min-width: 2em; padding: 1px 8px; border: 1px solid var(--key-edge); border-bottom-width: 3px;
+  border-radius: 6px; background: var(--key); font-family: inherit; font-size: .92em; font-weight: 600; text-align: center; line-height: 1.6; }
+figure { margin: 18px 0; }
+figure img { width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--line); display: block; }
+figure.narrow img { max-width: 460px; margin: 0 auto; }
+figcaption { color: var(--sub); font-size: 14px; text-align: center; margin-top: 8px; }
+.note, .warn { border-radius: 12px; padding: 12px 16px; margin: 16px 0; font-size: 15px; }
+.note { background: var(--accent-soft); }
+.warn { background: var(--warn-soft); }
+.note strong, .warn strong { display: block; }
+table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 15px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--sub); font-weight: 600; font-size: 14px; }
+td:first-child { white-space: nowrap; }
+.fit { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 14px 0; }
+.fit > div { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.fit h4 { margin: 0 0 6px; font-size: 16px; }
+.fit ul { margin: 0; padding-left: 1.2em; font-size: 15px; }
+.rank { display: inline-block; font-size: 12px; font-weight: 700; padding: 1px 10px; border-radius: 999px; }
+.rank.a { background: #e3f6ec; color: #17734b; } .rank.b { background: var(--accent-soft); color: var(--accent); }
+.rank.c { background: var(--warn-soft); color: var(--warn); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .rank.a { background: #163428; color: #5fd39c; } }
+.flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0; }
+.flow > div { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 14px 10px; text-align: center; font-size: 14px; position: relative; }
+.flow b { display: block; font-size: 15px; margin: 6px 0 2px; }
+.flow .ico { font-size: 24px; }
+.flow img { width: 100%; max-width: 170px; margin-top: 8px; border-radius: 8px; }
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 14px 0; }
+.card { border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.card b { display: block; margin-bottom: 4px; }
+.card .tag { display: inline-block; font-size: 12px; padding: 0 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); margin-bottom: 6px; }
+.smartscreen { background: #1f5fae; color: #fff; border-radius: 12px; padding: 20px 22px; max-width: 520px; margin: 16px auto; font-size: 14px; }
+.smartscreen .t { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
+.smartscreen .link { text-decoration: underline; font-weight: 600; outline: 3px solid #ffd54a; outline-offset: 3px; border-radius: 2px; }
+.smartscreen .row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
+.smartscreen .b { border: 1px solid #fff; padding: 4px 18px; border-radius: 4px; }
+.smartscreen .b.hl { outline: 3px solid #ffd54a; outline-offset: 3px; }
+dl.faq dt { font-weight: 700; margin-top: 16px; }
+dl.faq dd { margin: 4px 0 0; color: var(--text); }
+footer { color: var(--sub); font-size: 14px; padding: 24px 0 56px; text-align: center; }
+@media (max-width: 640px) {
+  h1 { font-size: 28px; }
+  section.chapter { padding: 22px 18px 14px; }
+  nav.toc ol { columns: 1; }
+  .flow { grid-template-columns: repeat(2, 1fr); }
+  .cards, .fit { grid-template-columns: 1fr; }
+  td:first-child { white-space: normal; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="brand"><div class="logo">V</div><h1>VoiceWeave 使い方</h1></div>
+  <p class="tagline">キーを押して話すだけで、話した言葉がカーソルの位置に入力される、Windows用の日本語音声入力ツールです。声の認識はこのPCの中で行います。</p>
+  <div class="cta">
+    <a class="btn primary" href="https://github.com/tino-planetarian/VoiceWeave-public/releases/latest">インストーラーをダウンロード</a>
+    <a class="btn" href="https://github.com/tino-planetarian/VoiceWeave-public">GitHubのページ</a>
+  </div>
+</header>
+
+<nav class="toc" aria-label="目次">
+  <ol>
+    <li><a href="#fit">向いている人・PC</a></li>
+    <li><a href="#install">インストール</a></li>
+    <li><a href="#first">初めての設定</a></li>
+    <li><a href="#basic">基本の使い方（F8）</a></li>
+    <li><a href="#polish">整形・作文モード（F9）</a></li>
+    <li><a href="#dictionary">辞書と用語集</a></li>
+    <li><a href="#settings">そのほかの設定</a></li>
+    <li><a href="#trouble">困ったとき</a></li>
+    <li><a href="#about">プライバシーとライセンス</a></li>
+  </ol>
+</nav>
+
+<section class="chapter" id="fit">
+  <h2><span class="num">✓</span>向いている人・向いているPC</h2>
+  <p>VoiceWeaveは、声の認識をこのPCの中で行います。そのため、<b>PCの性能で速さと安定が大きく変わります</b>。インストールの前に、自分のPCに合う使い方を確かめてください。</p>
+  <h3>自分のPCを確かめる</h3>
+  <p><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>Esc</kbd> でタスクマネージャーを開き、「パフォーマンス」を見ます。</p>
+  <ul>
+    <li><b>メモリ:</b>「メモリ」の右上に、全体の量（例: 16.0 GB）が出ます。</li>
+    <li><b>GPU:</b>「GPU」の右上に「NVIDIA GeForce …」などと出れば、NVIDIAのGPUがあります。「Intel」「AMD」だけなら、ここでは「GPUなし」として考えてください。</li>
+  </ul>
+  <h3>PCごとのおすすめ</h3>
+  <table>
+    <tr><th>あなたのPC</th><th>おすすめの使い方</th><th>使い心地</th></tr>
+    <tr><td>NVIDIAのGPU<br>＋メモリ16GB以上</td><td>PC内で認識（標準）＋GPU高速化。整形のAIもPC内で無料で使える</td><td><span class="rank a">とても快適</span><br>話し終えて約2秒で入力</td></tr>
+    <tr><td>NVIDIAのGPU<br>＋メモリ8GB</td><td>PC内で認識（標準）＋GPU高速化。整形のAIは外部（OpenAI / Anthropic）がおすすめ</td><td><span class="rank b">快適</span><br>ほかのアプリを開きすぎると不安定に</td></tr>
+    <tr><td>GPUなし<br>＋メモリ16GB以上</td><td><a href="#groq">クラウドで認識（Groq）</a>。または、PC内で認識の「Parakeet 日本語」</td><td><span class="rank b">快適</span><br>Groqなら約1〜2秒</td></tr>
+    <tr><td>GPUなし<br>＋メモリ8GB</td><td><a href="#groq">クラウドで認識（Groq）</a>がおすすめ。整形のAIも外部を使う</td><td><span class="rank c">Groqなら使える</span><br>PC内だけだと待ち時間が長く、途切れやすい</td></tr>
+  </table>
+  <p class="warn"><strong>GPUなしで標準・高精度の認識を使うと遅くなります</strong>NVIDIAのGPUがないPCで「標準（turbo）」や「高精度」を使うと、1回ごとに十数秒以上待つことがあります。GPUのないPCでは、「クラウドで認識（Groq）」か「Parakeet 日本語」を選んでください。また、PC内のAIで整形するには、NVIDIAのGPUとメモリ16GB以上が必要です。</p>
+  <h3 id="groq">Groq（グロック）とは</h3>
+  <p>Groqは、音声の認識やAIの処理を、インターネットの向こうの高速なコンピューターで行ってくれる米国のサービスです。VoiceWeaveで「クラウドで認識」を選ぶと、録音した声をGroqに送り、文字にして返してもらいます。<b>自分のPCの性能に関係なく速い</b>のが一番の長所です。</p>
+  <div class="cards">
+    <div class="card"><b>👍 よいところ</b>GPUがなくても、メモリが少なくても、約1〜2秒で入力できます。認識の正確さも高めです。無料プランがあり、登録にクレジットカードは要りません。</div>
+    <div class="card"><b>⚠️ 気をつけること</b>声が米国のGroq社に送られます。社外に声を出せない仕事には向きません。インターネットにつながっていないと使えません。無料プランには使える回数の上限があります。</div>
+  </div>
+  <p>Groqを使うには、GroqのAPIキーが必要です。次の手順で作れます（5分ほど）。</p>
+  <ol class="steps">
+    <li>ブラウザーで <a href="https://console.groq.com/">console.groq.com</a> を開き、GoogleアカウントやメールアドレスでGroqに登録（サインアップ）します。</li>
+    <li>画面の「API Keys」を開き、「Create API Key」を押します。名前は「VoiceWeave」など何でも構いません。</li>
+    <li><code>gsk_</code> で始まるキーが表示されるので、コピーします（この画面を閉じると二度と表示されないので、閉じる前にコピーします）。</li>
+    <li>VoiceWeaveの「基本」タブで「クラウドで認識」を押し、確認が出たら「切り替える」を押します。下に出る「GroqのAPIキー」の欄に貼り付けて、「保存」を押します。</li>
+  </ol>
+  <p class="note"><strong>APIキーは他人に教えないでください</strong>キーを知られると、あなたの無料枠を他人に使われてしまいます。VoiceWeaveはキーをWindowsの資格情報マネージャーに保存し、画面やファイルには残しません。</p>
+  <div class="fit">
+    <div><h4>👍 向いている人</h4><ul>
+      <li>メールや文書など、文字を打つ量が多い人</li>
+      <li>声を外に出さずに音声入力したい人（GPUのあるPC）</li>
+      <li>キーボードより話す方が考えをまとめやすい人</li>
+      <li>専門用語を辞書に登録して、自分向けに育てたい人</li>
+    </ul></div>
+    <div><h4>🤔 向いていない人</h4><ul>
+      <li>Mac・Linux・スマホで使いたい人（Windows専用です）</li>
+      <li>会社の管理PCなど、アプリを自由に入れられない人</li>
+      <li>GPUもメモリも少なく、クラウドも使いたくない人</li>
+      <li>読み直しなしで、そのまま正確な文を求める人（聞き違いは起こります）</li>
+    </ul></div>
+  </div>
+</section>
+
+<section class="chapter" id="install">
+  <h2><span class="num">1</span>インストール</h2>
+  <p>必要なもの: Windows 10 / 11（64ビット）、マイク、ディスクの空き約3GB、メモリ8GB以上（16GB以上がおすすめ）。NVIDIAのGPUがあると速くなりますが、なくても使えます。</p>
+  <ol class="steps">
+    <li><a href="https://github.com/tino-planetarian/VoiceWeave-public/releases/latest">ダウンロードのページ</a>で <code>VoiceWeave_x.y.z_x64-setup.exe</code> をクリックして保存します。</li>
+    <li>保存したファイルを開きます。次のような青い画面が出たら、<b>「詳細情報」</b>を押してから<b>「実行」</b>を押します。</li>
+  </ol>
+  <div class="smartscreen" role="img" aria-label="Windowsの保護画面の図。詳細情報を押すと実行ボタンが出る">
+    <div class="t">WindowsによってPCが保護されました</div>
+    <div>Microsoft Defender SmartScreen は認識されないアプリの起動を停止しました。</div>
+    <div style="margin-top:8px"><span class="link">詳細情報</span> ← ①ここを押す</div>
+    <div class="row"><span class="b hl">実行</span><span class="b">実行しない</span></div>
+    <div style="text-align:right;margin-top:8px">②出てきた「実行」を押す</div>
+  </div>
+  <p class="note"><strong>なぜこの画面が出るの？</strong>個人が作ったアプリで、有料の電子署名をしていないためです。ウイルスが見つかったという意味ではありません。</p>
+  <ol class="steps" start="3" style="counter-reset: s 2">
+    <li>インストールが終わると、VoiceWeaveは画面右下の<b>タスクトレイ</b>に常駐します。トレイのアイコンを右クリック →「設定を開く」で設定画面が開きます。</li>
+  </ol>
+  <p class="note"><strong>新しい版に更新するとき</strong>トレイのアイコンからVoiceWeaveを終了してから、新しいインストーラーを実行します。設定・辞書・認識モデルはそのまま残ります。</p>
+</section>
+
+<section class="chapter" id="first">
+  <h2><span class="num">2</span>初めての設定</h2>
+  <p>初めて設定画面を開くと「はじめに」の案内が出ます。声を文字にするための<b>認識モデル</b>を、最初に1回だけ導入します。</p>
+  <figure><img src="images/first-run.png" alt="設定画面の基本タブ。はじめにの案内と、初期設定を開くボタン" loading="lazy"><figcaption>「初期設定を開く」を押します（「初期設定」タブの <b>!</b> も同じ意味です）</figcaption></figure>
+  <ol class="steps">
+    <li>「初期設定」タブの<b>「ダウンロードして導入する」</b>を押します（約1.6GB、数分かかります）。</li>
+    <li>NVIDIAのGPUがあるPCは、続けて<b>「GPU高速化を導入する」</b>も押します（約550MB）。話し終えてから文字が入るまでが、十数秒から約2秒に縮みます。</li>
+    <li>画面上部が「エンジン: 利用可能」になれば準備完了です。</li>
+  </ol>
+  <figure><img src="images/setup-fresh.png" alt="初期設定タブ。ダウンロードして導入するボタンと、GPU高速化を導入するボタン" loading="lazy"><figcaption>導入前の「初期設定」タブ</figcaption></figure>
+  <figure><img src="images/setup-ready.png" alt="初期設定タブ。標準モデルは導入済み、GPU高速化は有効と表示" loading="lazy"><figcaption>導入が終わるとこうなります</figcaption></figure>
+  <h3>認識の方式を選ぶ</h3>
+  <p>「基本」タブのいちばん上で、声を文字にする場所を選べます。ふだんは「PC内で認識」のままで大丈夫です。</p>
+  <div class="cards">
+    <div class="card"><span class="tag">おすすめ</span><b>PC内で認識</b>声はPCの外に出ません。無料で、ネットも要りません。GPUがあると速い。</div>
+    <div class="card"><span class="tag">選べる</span><b>クラウドで認識（Groq）</b>どんなPCでも速い（約1〜2秒）。声を米国のGroq社に送ります。GroqのAPIキー（無料枠あり）が必要です。</div>
+  </div>
+  <p>PC内の認識には種類があります（「初期設定」タブの「認識プリセット」）。</p>
+  <table>
+    <tr><th>種類</th><th>向いているPC</th></tr>
+    <tr><td>標準（turbo）</td><td>ふだんはこれ。GPUがあると速い</td></tr>
+    <tr><td>高精度（large-v3）</td><td>より正確だが約2倍遅く、メモリも多く使う（約3GBの追加導入）</td></tr>
+    <tr><td>Parakeet 日本語</td><td>CPUだけでも速い。GPUのないPC向け（約0.6GBの追加導入）</td></tr>
+  </table>
+</section>
+
+<section class="chapter" id="basic">
+  <h2><span class="num">3</span>基本の使い方（F8）</h2>
+  <p>メモ帳、メール、チャットなど、文字を打てる場所ならどこでも使えます。</p>
+  <div class="flow">
+    <div><div class="ico">🖱️</div><b>① 入力したい場所をクリック</b>カーソルを置く</div>
+    <div><div class="ico">⌨️</div><b>② <kbd>F8</kbd> を押す</b>画面の下に表示が出る<img src="images/overlay-recording.png" alt="録音中の表示"></div>
+    <div><div class="ico">🗣️</div><b>③ 話す</b>ふつうの速さでOK</div>
+    <div><div class="ico">✅</div><b>④ もう一度 <kbd>F8</kbd></b>少し待つと文字が入る<img src="images/overlay-transcribing.png" alt="書き起こし中の表示"></div>
+  </div>
+  <table>
+    <tr><th>キー</th><th>できること</th></tr>
+    <tr><td><kbd>F8</kbd></td><td>録音の開始・停止。話した言葉に忠実に入力します</td></tr>
+    <tr><td><kbd>Esc</kbd></td><td>録音中に押すと、録音を取り消して何も入力しません</td></tr>
+    <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>V</kbd></td><td>直前の結果をもう一度入力します</td></tr>
+    <tr><td><kbd>F9</kbd> / <kbd>Shift</kbd>+<kbd>F9</kbd></td><td>整形モード・作文モード（<a href="#polish">次の章</a>）</td></tr>
+    <tr><td><kbd>Shift</kbd>+<kbd>F8</kbd></td><td>英語で話すとき（設定でオンにすると使えます）</td></tr>
+  </table>
+  <h3>自動で整えてくれること</h3>
+  <ul>
+    <li>言いよどみを取る:「えーと、明日の会議は」→「明日の会議は」</li>
+    <li>言い直しを整理:「3時、いや4時に」→「4時に」</li>
+    <li>数字にする:「二千二十六年」→「2026年」、「三十分」→「30分」</li>
+    <li>長い話を、話題の切れ目（「まず」「次に」など）で段落に分ける</li>
+  </ul>
+  <p class="warn"><strong>入力先が変わったときは、勝手に入力しません</strong>録音中に別のウィンドウへ切り替えたり、画面をロックしたりすると、文字はクリップボードへコピーするだけにします。入力したい場所で <kbd>Ctrl</kbd>+<kbd>V</kbd> を押して貼り付けてください。</p>
+</section>
+
+<section class="chapter" id="polish">
+  <h2><span class="num">4</span>整形・作文モード（F9・Shift+F9）</h2>
+  <p>AIを使って、話した内容を文章に仕上げるモードです。「整形」タブで「整形モードを使う」をオンにすると使えます。</p>
+  <div class="cards">
+    <div class="card"><b><kbd>F9</kbd> 整形モード</b>話した内容を、メールなどにそのまま使える書き言葉に整えます。整えた文の下に、元の書き起こしも付けられます。</div>
+    <div class="card"><b><kbd>Shift</kbd>+<kbd>F9</kbd> 作文モード</b>「山田さんに、会議を水曜に変えたいと丁寧にメールで」のような依頼から文章を作ります。足りない情報は【要確認】として残します。</div>
+  </div>
+  <figure><img src="images/polish.png" alt="整形タブ。整形モードを使う、ショートカット、作文モード、整形に使うAIの設定" loading="lazy"><figcaption>「整形」タブ</figcaption></figure>
+  <h3>文章を整えるAIを選ぶ</h3>
+  <table>
+    <tr><th>AI</th><th>特徴</th></tr>
+    <tr><td>このPC内のAI</td><td>無料で、文章はPCの外に出ません。<a href="https://ollama.com/">Ollama</a> が必要です（「Ollama を確認」から導入を案内します）。GPUのあるPC向け</td></tr>
+    <tr><td>OpenAI / Anthropic</td><td>外部のAI。各社のAPIキーが必要で、使った分だけ料金がかかります（1回あたり0.1円程度）</td></tr>
+  </table>
+  <p class="note"><strong>APIキーの保管</strong>入力したAPIキーはWindowsの資格情報マネージャーに保存され、ファイルや画面には残りません。</p>
+  <p class="warn"><strong>AIが作った文は「下書き」です</strong>送る前に必ず読み直してください。</p>
+</section>
+
+<section class="chapter" id="dictionary">
+  <h2><span class="num">5</span>辞書と用語集</h2>
+  <p>人の名前や専門用語が正しく出ないときは、「辞書」タブに登録します。</p>
+  <div class="cards">
+    <div class="card"><b>辞書</b>聞き違いやすい言葉の正しい書き方を登録します。例:「クロード」→「Claude」</div>
+    <div class="card"><b>分野の用語集</b>よく話す分野の言葉を「、」か改行で区切って並べます。整形のAIに毎回伝え、画面に出ている言葉は聞き取りのヒントにもなります。</div>
+  </div>
+  <figure><img src="images/dictionary.png" alt="辞書タブ。登録した言葉の一覧と、分野の用語集の入力欄" loading="lazy"><figcaption>「辞書」タブ（例の登録が入った状態）</figcaption></figure>
+  <p class="note"><strong>用語集の初期値は見本です</strong>最初に入っている言葉は書き方の例なので、自分がよく話す言葉に書き換えてください。変更したら、下の「保存して適用」を押します。</p>
+</section>
+
+<section class="chapter" id="settings">
+  <h2><span class="num">6</span>そのほかの設定</h2>
+  <p>「基本」タブで、ショートカットキーの変更、使うマイクの選択、自動で整える機能のオン・オフができます。変えたら、画面下の<b>「保存して適用」</b>を押します。</p>
+  <figure><img src="images/basic.png" alt="基本タブ。認識の方式、ショートカット、マイク、言いよどみの除去などの設定" loading="lazy"><figcaption>「基本」タブ</figcaption></figure>
+  <ul>
+    <li><b>ショートカットを変える:</b> 欄をクリックして、使いたいキーを押します。</li>
+    <li><b>Windows起動時に開始:</b>「初期設定」タブのいちばん下にあります。</li>
+    <li><b>使い方:</b> 右上の「使い方」ボタンで、このマニュアルを開けます。</li>
+    <li><b>画面を常に手前に:</b> 右上のピンのボタンで、設定画面を他のウィンドウより手前に表示できます。</li>
+  </ul>
+</section>
+
+<section class="chapter" id="trouble">
+  <h2><span class="num">7</span>困ったとき</h2>
+  <dl class="faq">
+    <dt>何も入力されない</dt>
+    <dd>トレイのアイコンから設定画面を開き、上部が「エンジン: 利用可能」になっているか確かめてください。「利用できません」のときは、「初期設定」タブで認識モデルを導入します。</dd>
+    <dt>F8を押しても反応しない</dt>
+    <dd>他のアプリが同じキーを使っている可能性があります。「基本」タブでショートカットを別のキーに変えてください。</dd>
+    <dt>遅い、録音が途切れる</dt>
+    <dd>メモリ不足のことが多いです。ブラウザーのタブや大きなアプリを閉じてみてください。GPUのあるPCは「GPU高速化」を導入すると速くなります。</dd>
+    <dt>音声の欠落・途切れの知らせが出た</dt>
+    <dd>録音の初めや、PCが忙しいときに、音声のごく一部を受け取りそこねた知らせです。入力された文に問題がなければ、気にしなくて大丈夫です。</dd>
+    <dt>文字がコピーされただけで入力されなかった</dt>
+    <dd>録音中に入力先が変わった（または画面をロックした）ためです。入力したい場所で <kbd>Ctrl</kbd>+<kbd>V</kbd> を押してください。</dd>
+    <dt>うまく動かない理由を知りたい</dt>
+    <dd>「診断」タブに、処理時間や最後のエラーが表示されます（声や文章は含みません）。「診断をまとめてコピー」で、人に相談するときに貼り付けられます。</dd>
+  </dl>
+  <h3>アンインストール</h3>
+  <p>Windowsの「設定」→「アプリ」→「インストールされているアプリ」から VoiceWeave をアンインストールします。認識モデルと設定は <code>%LOCALAPPDATA%\local.voiceweave.app</code> と <code>%APPDATA%\local.voiceweave.app</code> に残るので、不要なら削除してください。</p>
+</section>
+
+<section class="chapter" id="about">
+  <h2><span class="num">8</span>プライバシーとライセンス</h2>
+  <ul>
+    <li>録音した音声と認識した文章は保存しません（直前の結果をメモリに持つだけで、終了すると消えます）。</li>
+    <li>声がPCの外に出るのは、認識を「クラウド（Groq）」にしたときだけです。</li>
+    <li>文章がPCの外に出るのは、整形・作文に外部のAI（OpenAI / Anthropic）を選んだときだけです。</li>
+  </ul>
+  <p>このソフトは <a href="https://github.com/tino-planetarian/VoiceWeave-public/blob/main/LICENSE">PolyForm Noncommercial License 1.0.0</a> で公開しています。非営利の使用・改造・共有は自由で、個人が自分の仕事の道具として使うことも認めています。販売、有料での配布、有料サービスへの組み込みはできません。</p>
+  <p class="note"><strong>よかったら、使ってみてください</strong>個人が趣味と学習を兼ねて、AIと一緒に作っている試用版です。すべてのPCで確かめられてはいませんが、文章入力が少しでも楽になればうれしいです。気づいたことはぜひ教えてください。改造も大歓迎です。</p>
+</section>
+
+<footer>VoiceWeave · tino-planetarian · <a href="https://github.com/tino-planetarian/VoiceWeave-public">GitHub</a></footer>
+</div>
+</body>
+</html>

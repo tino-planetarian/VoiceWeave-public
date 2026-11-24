@@ -1,7 +1,8 @@
 """Copy what goes into the public repository (VoiceWeave-public) into a folder.
 
 Only files tracked by Git are copied, minus the development records, and the files in
-public/ replace their counterparts (README, AGENTS.md, CLAUDE.md, LICENSE).
+public/ replace their counterparts (README, AGENTS.md, CLAUDE.md, LICENSE). The user manual
+(manual/) goes to docs/, which GitHub Pages serves.
 
     python scripts/export-public.py <destination folder>
 
@@ -46,7 +47,7 @@ def main() -> None:
     for path in filter(None, tracked):
         if not published(path):
             continue
-        target = destination / path
+        target = destination / ("docs/" + path[len("manual/"):] if path.startswith("manual/") else path)
         target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(ROOT / path, target)
         count += 1

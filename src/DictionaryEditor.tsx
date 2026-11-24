@@ -81,7 +81,7 @@ export function DictionaryEditor({ entries, disabled, onChange, preview, newId }
       <label>
         使う場面（任意・整形モードのAIに伝えます）
         <input type="text" value={draft.note} disabled={disabled} maxLength={100}
-          placeholder="例: 稟議 → 社内で決裁を求める手続き。書類の名前と一緒に使う"
+          placeholder="例: AIの名前（Anthropic社）。AIやアプリの話をするときに使う"
           onChange={(event) => setDraft({ ...draft, note: event.target.value })} />
       </label>
       <label className="hint-toggle">

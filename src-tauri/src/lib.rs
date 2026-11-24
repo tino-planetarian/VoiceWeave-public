@@ -761,6 +761,20 @@ fn retry_engine(app: tauri::AppHandle) {
     let _ = app;
 }
 
+/// The user manual (GitHub Pages of the public repository).
+const MANUAL_URL: &str = "https://tino-planetarian.github.io/VoiceWeave-public/";
+
+/// Opens the user manual in the default browser. The address is fixed, never taken from
+/// the screen.
+#[tauri::command]
+fn open_manual() -> Result<(), String> {
+    std::process::Command::new("explorer.exe")
+        .arg(MANUAL_URL)
+        .spawn()
+        .map(|_| ())
+        .map_err(|_| "ブラウザーを開けませんでした".to_owned())
+}
+
 /// Development builds expose test-only choices (the tiny validation model).
 #[tauri::command]
 fn development_build() -> bool {
@@ -1055,6 +1069,7 @@ pub fn run() {
         })
         .invoke_handler(tauri::generate_handler![
             answer_memory_prompt,
+            open_manual,
             probe_worker,
             hotkey_status,
             capture_shortcut,
