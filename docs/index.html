@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="images/favicon.png">
 <title>VoiceWeave 使い方</title>
 <meta name="description" content="Windows用の日本語音声入力ツール VoiceWeave の使い方マニュアル">
 <style>
@@ -26,8 +27,7 @@ a { color: var(--accent); }
 .wrap { max-width: 880px; margin: 0 auto; padding: 0 16px; }
 header.hero { padding: 56px 0 36px; }
 .brand { display: flex; align-items: center; gap: 14px; }
-.logo { width: 52px; height: 52px; border-radius: 14px; background: var(--accent); color: #fff;
-  display: grid; place-items: center; font-weight: 700; font-size: 26px; }
+.logo { width: 52px; height: 52px; flex: 0 0 auto; display: block; }
 h1 { font-size: 34px; margin: 0; letter-spacing: .01em; }
 .tagline { color: var(--sub); margin: 14px 0 0; font-size: 17px; }
 .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
@@ -100,7 +100,7 @@ footer { color: var(--sub); font-size: 14px; padding: 24px 0 56px; text-align: c
 <body>
 <div class="wrap">
 <header class="hero">
-  <div class="brand"><div class="logo">V</div><h1>VoiceWeave 使い方</h1></div>
+  <div class="brand"><img class="logo" src="images/icon.png" alt="VoiceWeaveのアイコン" width="52" height="52"><h1>VoiceWeave 使い方</h1></div>
   <p class="tagline">キーを押して話すだけで、話した言葉がカーソルの位置に入力される、Windows用の日本語音声入力ツールです。声の認識はこのPCの中で行います。</p>
   <div class="cta">
     <a class="btn primary" href="https://github.com/tino-planetarian/VoiceWeave-public/releases/latest">インストーラーをダウンロード</a>
