@@ -34,8 +34,8 @@ const settings = {
 };
 
 const replies: Record<string, unknown> = {
-  "plugin:app|version": "0.3.13",
-  probe_worker: { version: "0.3.13" },
+  "plugin:app|version": "0.3.14",
+  probe_worker: { version: "0.3.14" },
   get_settings: { settings, recovered: false },
   hotkey_status: { record: true, repaste: true, polish: scene === "polish", compose: scene === "polish", english: false },
   development_build: false, input_probe_enabled: false, capture_probe_enabled: true,

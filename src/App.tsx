@@ -4,6 +4,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { getVersion } from "@tauri-apps/api/app";
 import { listen } from "@tauri-apps/api/event";
 import "./App.css";
+import appIcon from "./assets/voiceweave-icon.png";
 import { DiagnosticsPanel, newerDiagnostics, type DiagnosticsSnapshot } from "./DiagnosticsPanel";
 import { GpuPanel, type CudaOutcome, type CudaProgress, type CudaStatus } from "./GpuPanel";
 import { ModelPanel, type ModelAvailability } from "./ModelPanel";
@@ -359,7 +360,7 @@ function App() {
     <main className="shell">
       {/* No system title bar: the header moves the window and has its own buttons. */}
       <header data-tauri-drag-region>
-        <div className="mark" data-tauri-drag-region>V</div>
+        <img className="mark" src={appIcon} alt="" width="44" height="44" draggable={false} data-tauri-drag-region />
         <div className="header-title" data-tauri-drag-region>
           <p className="eyebrow" data-tauri-drag-region>LOCAL VOICE INPUT · 試用版</p>
           <h1 data-tauri-drag-region>VoiceWeave</h1>

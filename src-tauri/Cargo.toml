@@ -1,6 +1,6 @@
 [package]
 name = "voiceweave"
-version = "0.3.13"
+version = "0.3.14"
 description = "Local Windows voice input"
 authors = []
 edition = "2021"
