@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parent.parent
 # Development records and drafts: not published.
 EXCLUDED_FILES = {"HANDOFF.md", "TODO.md", "AGENTS.md", "CLAUDE.md", "README.md"}
 EXCLUDED_DIRS = ("public/", "docs/")
-KEPT_DOCS = {"docs/THIRD_PARTY_LICENSES.md"}
+KEPT_DOCS = {"docs/THIRD_PARTY_LICENSES.md", "docs/MAC_PORTING.md"}
 
 
 def published(path: str) -> bool:
